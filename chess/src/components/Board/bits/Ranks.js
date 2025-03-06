@@ -1,9 +1,11 @@
 import './Ranks.css'
+import { getCharacter } from '../../../helper';
+
 const Ranks = ({ ranks }) => {
     return (
         <div className="ranks">
             {ranks.map((rank) => (
-                <span key={rank} className="ranks">{rank}</span>
+                <span key={rank}>{rank}</span>
             ))}
         </div>
     );
