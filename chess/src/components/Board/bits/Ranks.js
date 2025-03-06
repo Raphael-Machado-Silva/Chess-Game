@@ -1,8 +1,9 @@
+import './Ranks.css'
 const Ranks = ({ ranks }) => {
     return (
         <div className="ranks">
             {ranks.map((rank) => (
-                <div key={rank} className="rank">{rank}</div>
+                <span key={rank} className="ranks">{rank}</span>
             ))}
         </div>
     );

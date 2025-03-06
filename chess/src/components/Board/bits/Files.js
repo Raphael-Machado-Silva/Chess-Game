@@ -1,8 +1,9 @@
+import './Files.css'
 const Files = ({ files }) => {
     return (
         <div className="files">
             {files.map((file) => (
-                <div key={file} className="file">{file}</div>
+                 <span key={file} className='files'>{file}</span>
             ))}
         </div>
     );
