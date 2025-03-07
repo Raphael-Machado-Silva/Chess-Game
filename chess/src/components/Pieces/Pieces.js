@@ -1,49 +1,56 @@
+import { createPosition, copyPosition } from '../../helper'
+import { useState, useRef } from 'react'
 import Piece from './Piece'
 import './Pieces.css'
 
 const Pieces = () => {
-    const position = new Array(8).fill('').map(x=> new Array(8).fill(''))
 
-    //position[0][0] = 'wr'
-    //position[0][7] = 'wr'
-    //position[7][0] = 'br'
-    //position[7][7] = 'br'
+    const ref = useRef()
 
-    for (let i =0; i < 8; i++) {
-        position[1][i] = 'wp'
-        position[6][i] = 'bp'
+    const [state, setState] = useState(createPosition())
+
+    const calculateCoords = e => {
+        const {width, left, top} = ref.current.getBoundingClientRect()//X e Y
+        const size = width / 8
+        const y = Math.floor((e.clientX - left) / size)
+        const x = 7 - Math.floor((e.clientY - top) / size)
+        console.log(x, y)
+        return {x, y}
     }
-    //white
-    position[0][0] ='wr'
-    position[0][1] ='wn'
-    position[0][2] ='wb'
-    position[0][3] ='wq'
-    position[0][4] ='wk'
-    position[0][5] ='wb'
-    position[0][6] ='wn'
-    position[0][7] ='wr'
 
-    //blacks
-    position[7][0] ='br'
-    position[7][1] ='bn'
-    position[7][2] ='bb'
-    position[7][3] ='bq'
-    position[7][4] ='bk'
-    position[7][5] ='bb'
-    position[7][6] ='bn'
-    position[7][7] ='br'
+    const onDrop = e => {
+        const newPosition = copyPosition (state)
+        const {x, y} = calculateCoords(e)
 
-    console.log(position)
+        const [p, rank, file] = e.dataTransfer.getData('text').split(',')
+        console.log(p, rank, file)
 
-    return <div className='pieces'>
-                {position.map((r,rank)=>
+         // Certifique-se de que rank e file sejam números
+        const rankIndex = parseInt(rank, 10); // Converte rank para número
+        const fileIndex = parseInt(file, 10); // Converte file para número
+
+        newPosition[rankIndex][fileIndex] = ''
+        newPosition[x][y] = p // P é a peça, o nome dela
+
+        setState(newPosition)
+    }
+
+    const onDragOver = e => e.preventDefault()
+
+
+    return <div className='pieces'
+                ref = {ref}
+                onDrop = {onDrop}
+                onDragOver = {onDragOver}>
+
+                {state.map((r,rank)=>
                     r.map((f, file) => 
-                        position[rank][file] ? 
+                        state[rank][file] ? 
                             <Piece
                             key={rank+'-'+file}
                             rank={rank}
                             file={file}
-                            piece={position[rank][file]}/>
+                            piece={state[rank][file]}/>
                         : null
                 ))}
             </div>
