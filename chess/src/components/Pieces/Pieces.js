@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import Piece from './Piece'
 import './Pieces.css'
 import { useAppContext } from '../../contexts/Context'
-import { makeNewMove } from '../../reducer/actions/move'
+import { clearCandidates, makeNewMove } from '../../reducer/actions/move'
 
 const Pieces = () => {
 
@@ -38,10 +38,15 @@ const Pieces = () => {
         const rankIndex = parseInt(rank, 10); // Converte rank para número
         const fileIndex = parseInt(file, 10); // Converte file para número
 
-        newPosition[rankIndex][fileIndex] = ''
-        newPosition[x][y] = p // P é a peça, o nome dela
 
-        dispatch(makeNewMove({newPosition}))
+        if (appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
+            newPosition[rankIndex][fileIndex] = ''
+            newPosition[x][y] = p // P é a peça, o nome dela
+            dispatch(makeNewMove({newPosition}))
+        }
+
+        dispatch(clearCandidates())
+
     }
 
     const onDragOver = e => e.preventDefault()

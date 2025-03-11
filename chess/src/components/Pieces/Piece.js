@@ -1,5 +1,6 @@
 import arbiter from '../../arbiter/arbiter';
 import {useAppContext} from '../../contexts/Context'
+import { generateCandidateMoves } from '../../reducer/actions/move';
 
 const Piece = ({rank, file, piece}) => {
     
@@ -56,7 +57,7 @@ const Piece = ({rank, file, piece}) => {
         }, 0)
         if (turn === piece[0]) {
             const candidateMoves = arbiter.getRegularMoves({position:currentPosition, piece, rank, file })
-            console.log(candidateMoves);
+            dispatch(generateCandidateMoves({candidateMoves}))
         }
     }
 
