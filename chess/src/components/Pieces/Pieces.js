@@ -40,6 +40,14 @@ const Pieces = () => {
 
 
         if (appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
+
+            if (p.endsWith('p') && !newPosition[x][y] && x !== rankIndex && y !== fileIndex) {
+                // Remove o peão adversário capturado via En Passant
+                const enemyPawnRow = x - (p === 'wp' ? 1 : -1); // En Passant captura uma linha antes ou depois
+                newPosition[enemyPawnRow][y] = '';  // Remover o peão inimigo na linha que ele passou
+            }
+            
+
             newPosition[rankIndex][fileIndex] = ''
             newPosition[x][y] = p // P é a peça, o nome dela
             dispatch(makeNewMove({newPosition}))

@@ -47,19 +47,28 @@ const Piece = ({rank, file, piece}) => {
 }
 
 
-    const onDragStart = e => {
-        e.dataTransfer.effectAllowed = 'move'
+const onDragStart = e => {
+    e.dataTransfer.effectAllowed = 'move';
 
-        e.dataTransfer.setData('text/plain', `${piece}, ${rank}, ${file}`)
+    e.dataTransfer.setData('text/plain', `${piece}, ${rank}, ${file}`);
 
-        setTimeout(()=>{
-            e.target.style.display = 'none'
-        }, 0)
-        if (turn === piece[0]) {
-            const candidateMoves = arbiter.getRegularMoves({position:currentPosition, piece, rank, file })
-            dispatch(generateCandidateMoves({candidateMoves}))
-        }
+    setTimeout(() => {
+        e.target.style.display = 'none';
+    }, 0);
+
+    if (turn === piece[0]) {
+        const candidateMoves = arbiter.getValidMoves({
+            position: currentPosition, // 🔥 Correção aqui
+            prevPosition: position.length > 1 ? position[position.length - 2] : null, // 🔥 PrevPosition corrigido
+            piece,
+            rank,
+            file
+        });
+
+        dispatch(generateCandidateMoves({ candidateMoves }));
     }
+};
+
 
 
     const onDragEnd = e => e.target.style.display = 'block'
