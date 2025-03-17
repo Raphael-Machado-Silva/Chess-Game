@@ -4,6 +4,7 @@ import Piece from './Piece'
 import './Pieces.css'
 import { useAppContext } from '../../contexts/Context'
 import { clearCandidates, makeNewMove } from '../../reducer/actions/move'
+import arbiter from '../../arbiter/arbiter'
 
 const Pieces = () => {
 
@@ -27,34 +28,29 @@ const Pieces = () => {
         return {x, y}
     }
 
-    const onDrop = e => {
-        const newPosition = copyPosition (currentPosition)
+    const move = e =>{
         const {x, y} = calculateCoords(e)
+    
+        const [piece, rankStr, fileStr] = e.dataTransfer.getData('text').split(',')
+        const rank = parseInt(rankStr, 10);
+        const file = parseInt(fileStr, 10);
 
-        const [p, rank, file] = e.dataTransfer.getData('text').split(',')
-        console.log(p, rank, file)
-
-         // Certifique-se de que rank e file sejam números
-        const rankIndex = parseInt(rank, 10); // Converte rank para número
-        const fileIndex = parseInt(file, 10); // Converte file para número
-
-
+        
         if (appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
-
-            if (p.endsWith('p') && !newPosition[x][y] && x !== rankIndex && y !== fileIndex) {
-                // Remove o peão adversário capturado via En Passant
-                const enemyPawnRow = x - (p === 'wp' ? 1 : -1); // En Passant captura uma linha antes ou depois
-                newPosition[enemyPawnRow][y] = '';  // Remover o peão inimigo na linha que ele passou
-            }
-            
-
-            newPosition[rankIndex][fileIndex] = ''
-            newPosition[x][y] = p // P é a peça, o nome dela
+            const newPosition = arbiter.performMove({
+                position: currentPosition,
+                piece, rank, file,
+                x, y
+            })
             dispatch(makeNewMove({newPosition}))
         }
-
         dispatch(clearCandidates())
+    }
 
+    const onDrop = e => { 
+        e.preventDefault()
+
+        move (e)
     }
 
     const onDragOver = e => e.preventDefault()
