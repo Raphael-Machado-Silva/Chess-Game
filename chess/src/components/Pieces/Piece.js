@@ -70,7 +70,6 @@ const onDragStart = e => {
 };
 
 
-
     const onDragEnd = e => e.target.style.display = 'block'
 
     
