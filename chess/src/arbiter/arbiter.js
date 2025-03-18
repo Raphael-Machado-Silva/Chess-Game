@@ -1,4 +1,4 @@
-import { getBishopMoves, getKingMoves, getKnightMoves, getPawnCaptures, getPawnMoves, getQueenMoves, getRookMoves } from "./getMoves"
+import { getBishopMoves, getCastlingMoves, getKingMoves, getKingPosition, getKnightMoves, getPawnCaptures, getPawnMoves, getPieces, getQueenMoves, getRookMoves } from "./getMoves"
 import { movePiece,movePawn } from './move';
 
 const arbiter = {
@@ -18,7 +18,7 @@ const arbiter = {
                 
     },
 
-    getValidMoves : function ({position,prevPosition,piece,rank,file}){
+    getValidMoves : function ({position, castleDirection,prevPosition,piece,rank,file}){
         let moves = this.getRegularMoves({position,piece,rank,file})
 
         if (piece.endsWith('p')){
@@ -28,7 +28,41 @@ const arbiter = {
             ]
         }
 
+        if (piece.endsWith('k')){
+            moves = [
+                ...moves, 
+                ...getCastlingMoves({position, castleDirection, piece, rank, file})
+            ]
+        }
+
         return moves
+    },
+
+    isPlayerInCheck : function ({positionAfterMove, position, player}) {
+        const enemy = player.startsWith('w') ? 'b' : 'w'
+        let kingPos = getKingPosition(positionAfterMove,player)
+        const enemyPieces = getPieces(positionAfterMove,enemy)
+
+        const enemyMoves = enemyPieces.reduce((acc,p) => acc = [
+            ...acc,
+            ...(p.piece.endsWith('p')
+            ?   getPawnCaptures({
+                    position: positionAfterMove, 
+                    prevPosition:  position,
+                    ...p
+                })
+            :   this.getRegularMoves({
+                    position: positionAfterMove, 
+                    ...p
+                })
+            )
+        ], [])
+    
+        if (enemyMoves.some (([x,y]) => kingPos[0] === x && kingPos[1] === y))
+        return true
+
+        else
+        return false
     },
 
     performMove : function ({position, piece, rank, file, x, y}){

@@ -261,7 +261,7 @@ export const getCastlingMoves = ({position,castleDirection,piece,rank,file}) => 
 
 }
 
-export const getCastlingDirections = ({castleDirection,piece,file,rank}) => {
+export const getCastlingDirections = ({castleDirection,piece,file,rank}) => { // TALVEZ PRECISE VERIFICAR MELHOR A TRANSFORMAÇÃO INT
     file = Number(file)
     rank = Number(rank)
     const direction = castleDirection[piece[0]]

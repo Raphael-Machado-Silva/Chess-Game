@@ -6,7 +6,7 @@ const Piece = ({rank, file, piece}) => {
     
 
     const {appState, dispatch} = useAppContext()
-    const {turn, position} = appState;
+    const {turn, castleDirection, position} = appState;
     const currentPosition = position[position.length - 1]
 
     const getMoves = () => {
@@ -61,6 +61,7 @@ const onDragStart = e => {
             position: currentPosition, // 🔥 Correção aqui
             prevPosition: position.length > 1 ? position[position.length - 2] : null, // 🔥 PrevPosition corrigido
             piece,
+            castleDirection: castleDirection[turn],
             rank,
             file
         });
