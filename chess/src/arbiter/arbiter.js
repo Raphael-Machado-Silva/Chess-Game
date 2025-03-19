@@ -18,24 +18,31 @@ const arbiter = {
                 
     },
 
-    getValidMoves : function ({position, castleDirection,prevPosition,piece,rank,file}){
+    getValidMoves : function ({position,castleDirection,prevPosition,piece,rank,file}) {
         let moves = this.getRegularMoves({position,piece,rank,file})
+        const notInCheckMoves = []
 
         if (piece.endsWith('p')){
             moves = [
-                ...moves, 
-                ...getPawnCaptures({position, prevPosition, piece, rank, file})
+                ...moves,
+                ...getPawnCaptures({position,prevPosition,piece,rank,file})
             ]
         }
-
-        if (piece.endsWith('k')){
+        if (piece.endsWith('k'))
             moves = [
-                ...moves, 
-                ...getCastlingMoves({position, castleDirection, piece, rank, file})
+                ...moves , 
+                ...getCastlingMoves({position,castleDirection,piece,rank,file})
             ]
-        }
 
-        return moves
+        moves.forEach(([x,y]) => {
+            const positionAfterMove = 
+                this.performMove({position,piece,rank,file,x,y})
+
+            if (!this.isPlayerInCheck({positionAfterMove, position, player : piece[0]})){
+                notInCheckMoves.push([x,y])
+            }
+        })
+        return notInCheckMoves
     },
 
     isPlayerInCheck : function ({positionAfterMove, position, player}) {
