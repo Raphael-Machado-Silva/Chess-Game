@@ -14,3 +14,11 @@
   font-family: "Inter", sans-serif;
 }
 
+button {
+  background: var(--dark-tile);
+  color: var(--light-tile);
+  border: 0 none;
+  padding: 10px 30px;
+  margin: 10px 0;
+  font-size: 1.1em;
+} 

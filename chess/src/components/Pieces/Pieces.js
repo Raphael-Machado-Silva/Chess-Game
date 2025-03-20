@@ -7,7 +7,7 @@ import { clearCandidates, makeNewMove } from '../../reducer/actions/move'
 import arbiter from '../../arbiter/arbiter'
 import { openPromotion } from '../../reducer/actions/popup'
 import { getCastlingDirections } from '../../arbiter/getMoves'
-import { updateCastling } from '../../reducer/actions/game'
+import { detectStalemate, updateCastling } from '../../reducer/actions/game'
 
 const Pieces = () => {
 
@@ -62,6 +62,10 @@ const Pieces = () => {
 
         
         if (appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
+
+            const opponent = piece.startsWith('b') ? 'w' : 'b'
+            const castleDirection = appState.castleDirection[`${piece.startsWith('b') ? 'w' : 'b'}`]
+
             if((piece === 'wp' && x === 7 || (piece === 'bp' && x === 0))){
                 openPromotionBox({rank,file, x, y})
                 return
@@ -75,6 +79,11 @@ const Pieces = () => {
                 x, y
             })
             dispatch(makeNewMove({newPosition}))
+
+            
+            if (arbiter.isStalemate(newPosition,opponent,castleDirection)){
+                dispatch(detectStalemate())
+            }
         }
         dispatch(clearCandidates())
     }
