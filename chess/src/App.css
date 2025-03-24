@@ -10,8 +10,10 @@
   display: grid;
   place-content: center;
   height: 100vh;
+
   background: var(--bg-color);
   font-family: "Inter", sans-serif;
+  grid-template-columns: auto 220px;
 }
 
 button {
@@ -22,3 +24,14 @@ button {
   margin: 10px 0;
   font-size: 1.1em;
 } 
+
+/* Ajusta para telas menores que 830px */
+@media all and (max-width: 830px) {
+  .App {
+    height: 100%;
+    
+    grid-template-columns: 1fr; /* Coloca os itens em uma única coluna */
+    padding: 20px; /* Ajusta o espaçamento interno da App */
+  }
+  
+}

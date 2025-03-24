@@ -1,14 +1,21 @@
 :root {
     --tile-size: 100px;
-    --light-tile: #F0D8B7;
-    --dark-tile: #B48764;
+    --light-tile: #F2F2F2; /* Mármore branco */
+    --dark-tile: #4A4A4A;  /* Mármore preto */
+    --ranks_files: #ffffff;
     --bg-color: #202020;
     --highlight: rgba(0,0,0,0.1);
     --check : #FEEC48;
 }
 
-@media all and (max-width: 450px){
-    :root{
+@media all and (max-width: 680px) {
+    :root {
+        --tile-size: 75px;
+    }
+}
+
+@media all and (max-width: 450px) {
+    :root {
         --tile-size: 50px;
     }
 }

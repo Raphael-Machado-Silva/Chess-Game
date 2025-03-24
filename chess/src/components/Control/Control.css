@@ -1,0 +1,21 @@
+.control {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    text-align: center;
+    height: calc(8*var(--tile-size));
+    background-color: white;
+    border-radius: 20px;
+}
+
+@media all and (max-width: 830px){
+    .control{
+        font-size: 30px;
+        width: 50%;
+        margin: auto;
+    }
+    .control button{
+        border-radius: 20px;
+        font-size: 30px;
+    }
+}

@@ -53,3 +53,39 @@ export const createPosition = () => {
     });
     return results;
   };
+
+
+  export const getNewMoveNotation = ({
+    piece,
+    rankStr,
+    fileStr,
+    x,
+    y,
+    position,
+    promotesTo,
+  }) => {
+    let note = "";
+
+    const rank = parseInt(rankStr, 10);
+    const file = parseInt(fileStr, 10);
+    
+    if (piece[1] === "k" && Math.abs(file - y) === 2) {
+      if (file < y) return "O-O";
+      else return "O-O-O";
+    }
+  
+    if (piece[1] !== "p") {
+      note += piece[1].toUpperCase();
+      if (position[x][y]) {
+        note += "x";
+      }
+    } else if (rank !== x && file !== y) {
+      note += getCharacter(file + 1) + "x";
+    }
+  
+    note += getCharacter(y + 1) + (x + 1);
+  
+    if (promotesTo) note += "=" + promotesTo.toUpperCase();
+  
+    return note;
+  };
