@@ -1,11 +1,27 @@
 :root {
     --tile-size: 100px;
-    --light-tile: #F2F2F2; /* Mármore branco */
-    --dark-tile: #4A4A4A;  /* Mármore preto */
-    --ranks_files: #ffffff;
-    --bg-color: #202020;
-    --highlight: rgba(0,0,0,0.1);
-    --check : #FEEC48;
+    --control: #C4794E;
+
+    /* Tema Claro */
+    --light-tile: #F6E5CC; /* Mármore branco */
+    --dark-tile: #c4794e;  /* Mármore preto */
+    --ranks_files: #000000; /* Números/letras em preto */
+    --bg-color: #ebe7e6f5; /* Fundo cinza claro */
+    --highlight: rgba(0, 0, 0, 0.1);
+    --check: #FEEC48; /* Amarelo para xeque */
+    --back: #f5f5f5;
+}
+
+/* Tema Escuro */
+[data-theme="dark"] {
+    --light-tile: #F2F2F2; /* Madeira clara */
+    --dark-tile: #4A4A4A;  /* Madeira escura */
+    --ranks_files: #FFFFFF; /* Números/letras em branco */
+    --bg-color: #202020; /* Fundo escuro */
+    --highlight: rgba(255, 255, 255, 0.2);
+    --check: #FFD700; /* Dourado para xeque */
+    --control: white;
+    --back: #4A4A4A;
 }
 
 @media all and (max-width: 680px) {

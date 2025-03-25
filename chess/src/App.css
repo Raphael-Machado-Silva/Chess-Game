@@ -26,9 +26,11 @@ button {
 } 
 
 /* Ajusta para telas menores que 830px */
-@media all and (max-width: 830px) {
+@media all and (max-width: 840px) {
   .App {
     height: 100%;
+    
+    overflow-x: hidden;
     
     grid-template-columns: 1fr; /* Coloca os itens em uma única coluna */
     padding: 20px; /* Ajusta o espaçamento interno da App */

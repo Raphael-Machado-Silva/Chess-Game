@@ -4,18 +4,42 @@
     padding: 15px;
     text-align: center;
     height: calc(8*var(--tile-size));
-    background-color: white;
+    width: 60%;
+    margin: auto;
+    margin-left: -40px;
     border-radius: 20px;
+    border: 2px solid black;
+    background-color: var(--control);
 }
 
-@media all and (max-width: 830px){
+@media all and (max-width: 840px){
     .control{
-        font-size: 30px;
+        font-size: 28px;
         width: 50%;
         margin: auto;
+        margin-bottom: 50px;
     }
     .control button{
         border-radius: 20px;
         font-size: 30px;
+    }
+    .moves-list{
+        padding-left: 35px;
+    }
+}
+
+@media all and (max-width: 460px){
+    .control{
+        font-size: 18px;
+        width: 60%;
+        margin: auto;
+        margin-bottom: 30px;
+    }
+    .control button{
+        border-radius: 20px;
+        font-size: 30px;
+    }
+    .moves-list{
+        padding-left: 25px;
     }
 }

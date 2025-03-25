@@ -1,12 +1,14 @@
 .moves-list {
     display: flex;
     flex-direction: row;
-    color: var(--dark-tile  );
+    color:var(--bg-color);
     flex: 1 1;
     flex-wrap: wrap;
     align-content: start;
     overflow: auto;
     font-size: 1.1em;
+    margin-bottom: 125px;
+    
 }
 .moves-list div {
     flex-basis: 35%;
