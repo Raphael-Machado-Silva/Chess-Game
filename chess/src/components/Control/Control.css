@@ -3,7 +3,7 @@
     flex-direction: column;
     padding: 15px;
     text-align: center;
-    height: calc(8*var(--tile-size));
+    height: calc(7*var(--tile-size));
     width: 60%;
     margin: auto;
     margin-left: -40px;
