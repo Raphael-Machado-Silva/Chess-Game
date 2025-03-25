@@ -5,7 +5,7 @@ Este é um projeto pessoal chamado **Chess Game**, desenvolvido para me desafiar
 - O tabuleiro
 - As peças
 - As regras (movimentos, xeque, xeque-mate, roque, en passant)
-- Histórico de jogadas
+- Histórico de jogadas e voltar lançes
 - Mudança de tema
 
 ---
